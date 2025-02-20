@@ -7,12 +7,18 @@ clock = pygame.time.Clock() # we have to make sure the game runs at a particular
 # cause the speed of the game is dependent on the speed of the pc
 
 test_surface = pygame.Surface((100, 200)) # surface is like a canvas where we can draw our elements
+test_surface.fill((0, 0, 255)) # fill the surface with red color
+#xpos = 200
+#test_rect = pygame.Rect(100,200,100,100)
 while True:
     for  event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    screen.fill((255, 50, 255))             # fill the screen with white color
-    screen.blit(test_surface, (200 ,250))    # blit is used to draw the surface on the screen
+    screen.fill((175, 215, 70))
+    #pygame.draw.ellipse(screen, (255, 0, 0), test_rect)  # draw a rectangle on the screen
+    #xpos+=1                                 # fill the screen with white color
+    #screen.blit(test_surface, (xpos ,250)) 
+    #screen.blit(test_surface, (250 ,xpos))  # blit is used to draw the surface on the screen
     pygame.display.update()                  # we are drawing our elements here
     clock.tick(60)                           # 60 frames per second
