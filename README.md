@@ -6,7 +6,7 @@ Use arrow keys (← ↑ → ↓) to move the snake.
 Eat food to grow longer and increase your score.
 Avoid colliding with the walls or yourself. 
 
-## 🚀 Features
-✅ Simple and fun gameplay
-✅ Retro-style graphics
-✅ Score tracking
+## 🚀 Features :)
+- Simple and fun gameplay
+- Retro-style graphics
+- Score tracking
