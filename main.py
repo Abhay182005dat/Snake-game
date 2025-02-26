@@ -1,4 +1,5 @@
 import pygame , sys
+"""
 # set screen : screen = pygame.display.set_mode((width, height))
 pygame.init()
 screen = pygame.display.set_mode((400, 500))
@@ -25,5 +26,37 @@ while True:
     test_rect.right += 1
     pygame.display.update()                  # we are drawing our elements here
     clock.tick(60)                           # 60 frames per second
-    
+
+    """
+
+
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BASICS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+from pygame.math import Vector2
+import random
+class Fruit:
+    def __init__(self):
+        self.x = random.randint(0,cell_number - 1) # create an x and y position also it includes the second parameter 
+        self.y = random.randint(0 , cell_number -1)              # so it will never go out of the screen thats why -1
+        self.pos = Vector2(self.x, self.y)
+    
+    def draw_fruit(self):
+        fruit_rect = pygame.Rect(int(self.pos.x * cell_size),int (self.pos.y * cell_size),cell_size, cell_size)
+        pygame.draw.rect(screen,(126,166,114),fruit_rect)
+
+
+pygame.init()
+cell_size = 40
+cell_number = 20
+screen = pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
+clock = pygame.time.Clock()
+
+fruit = Fruit()
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+    screen.fill((175, 215, 70))
+    fruit.draw_fruit()
+    pygame.display.update()
+    clock.tick(60)
