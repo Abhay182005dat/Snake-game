@@ -1,0 +1,10 @@
+Moving the Snake 
+The Head is moved to the new block 
+
+The Block before the head gets the position where the head used to be
+Each block is moved to the position of the block that used to be before it
+
+this deletes the last block
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Positive y-values go downward (increasing y moves the object down).
+Negative y-values go upward (decreasing y moves the object up).
