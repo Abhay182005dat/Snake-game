@@ -38,6 +38,7 @@ class snake:
     def __init__(self):
         self.body = [Vector2(5,10), Vector2(6,10), Vector2(7,10)]
         self.direction = Vector2(1,0)
+        self.new_block = False
     def draw_snake(self):
         for block in self.body:
             #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
@@ -45,21 +46,33 @@ class snake:
             ypos = int(block.y * cell_size)
             block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
             pygame.draw.rect(screen, (183, 111, 122), block_rect)
-
+   
     def move_snake(self):
-        bodycopy = self.body[:-1] # first element to the second last element
-        bodycopy.insert(0,bodycopy[0] + self.direction)
-        self.body = bodycopy[:]
+        if self.new_block == True:
+            bodycopy = self.body[:]
+            bodycopy.insert(0,bodycopy[0] + self.direction)
+            self.body = bodycopy[:]
+            self.new_block = False
+        else :
+            bodycopy = self.body[:-1] # first element to the second last element
+            bodycopy.insert(0,bodycopy[0] + self.direction)
+            self.body = bodycopy[:]
+
+    def add_block(self):
+        self.new_block = True
 
 class Fruit:
     def __init__(self):
-        self.x = random.randint(0,cell_number - 1) # create an x and y position also it includes the second parameter 
-        self.y = random.randint(0 , cell_number -1)              # so it will never go out of the screen thats why -1
-        self.pos = Vector2(self.x, self.y)
+        self.randomize()
     
     def draw_fruit(self):
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size),int (self.pos.y * cell_size),cell_size, cell_size)
         pygame.draw.rect(screen,(126,166,114),fruit_rect)
+    
+    def randomize(self):
+        self.x = random.randint(0,cell_number - 1) # create an x and y position also it includes the second parameter
+        self.y = random.randint(0 , cell_number -1)     # so it will never go out of the screen thats why -1
+        self.pos =  Vector2(self.x, self.y)        
 
 class MAIN:
     def __init__(self):
@@ -68,12 +81,16 @@ class MAIN:
 
     def update(self):   
         self.snake.move_snake()
-
+        self.check_collision()
     def draw_elements(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
-        
-
+    
+    def check_collision(self):
+        if self.fruit.pos == self.snake.body[0]:
+           #reposion the fruit
+            self.fruit.randomize()
+            self.snake.add_block()
 pygame.init()
 cell_size = 40
 cell_number = 20
