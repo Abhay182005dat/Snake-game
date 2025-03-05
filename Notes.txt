@@ -8,3 +8,8 @@ this deletes the last block
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Positive y-values go downward (increasing y moves the object down).
 Negative y-values go upward (decreasing y moves the object up).
+
+
+
+1. If snake hits itself 
+2. If snake hits the walls
