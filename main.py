@@ -39,13 +39,57 @@ class snake:
         self.body = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
         self.direction = Vector2(1,0)
         self.new_block = False
+
+        self.head_up = pygame.image.load('Snake game/Assets/head_up.png').convert_alpha()
+        self.head_down = pygame.image.load('Snake game/Assets/head_down.png').convert_alpha()
+        self.head_right = pygame.image.load('Snake game/Assets/head_right.png').convert_alpha()
+        self.head_left = pygame.image.load('Snake game/Assets/head_left.png').convert_alpha()
+
+        self.tail_up = pygame.image.load('Snake game/Assets/tail_up.png').convert_alpha()
+        self.tail_down = pygame.image.load('Snake game/Assets/tail_down.png').convert_alpha()
+        self.tail_right = pygame.image.load('Snake game/Assets/tail_right.png').convert_alpha()
+        self.tail_left = pygame.image.load('Snake game/Assets/tail_left.png').convert_alpha()
+
+        self.body_vertical = pygame.image.load('Snake game/Assets/body_vertical.png').convert_alpha()
+        self.body_horizontal = pygame.image.load('Snake game/Assets/body_horizontal.png').convert_alpha()
+
+        self.body_tr = pygame.image.load('Snake game/Assets/body_tr.png').convert_alpha()
+        self.body_tl = pygame.image.load('Snake game/Assets/body_tl.png').convert_alpha()
+        self.body_br = pygame.image.load('Snake game/Assets/body_br.png').convert_alpha()
+        self.body_bl = pygame.image.load('Snake game/Assets/body_bl.png').convert_alpha()
+
     def draw_snake(self):
-        for block in self.body:
+       for index,block in enumerate(self.body):
+           #1.We still need a rect for the posititoning
+           xpos = int(block.x * cell_size)
+           ypos = int(block.y * cell_size)
+           block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
+           #2. what direction is the face heading
+           if index == 0:
+               screen.blit(self.head_right, block_rect)
+           else:
+              pygame.draw.rect(screen , (150,100,100) , block_rect) 
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+       """ for block in self.body:
             #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
             xpos = int(block.x * cell_size)
             ypos = int(block.y * cell_size)
             block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
-            pygame.draw.rect(screen, (183, 111, 122), block_rect)
+            pygame.draw.rect(screen, (183, 111, 122), block_rect)"""
+            
    
     def move_snake(self):
         if self.new_block == True:
@@ -67,7 +111,8 @@ class Fruit:
     
     def draw_fruit(self):
         fruit_rect = pygame.Rect(int(self.pos.x * cell_size),int (self.pos.y * cell_size),cell_size, cell_size)
-        pygame.draw.rect(screen,(126,166,114),fruit_rect)
+        screen.blit(apple,fruit_rect)
+        #pygame.draw.rect(screen,(126,166,114),fruit_rect)
     
     def randomize(self):
         self.x = random.randint(0,cell_number - 1) # create an x and y position also it includes the second parameter
@@ -112,7 +157,7 @@ cell_size = 40
 cell_number = 20
 screen = pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 clock = pygame.time.Clock()
-
+apple = pygame.image.load('Snake game/Assets/apple.png').convert_alpha() # convert_alpha is used to convert the image to the format that pygame can understand
 main_game = MAIN()
 
 SCREEN_UPDATE = pygame.USEREVENT
