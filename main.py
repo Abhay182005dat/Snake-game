@@ -59,6 +59,8 @@ class snake:
         self.body_bl = pygame.image.load('Snake game/Assets/body_bl.png').convert_alpha()
 
     def draw_snake(self):
+       self.update_head_graphics()
+       self.update_tail_graphics()
        for index,block in enumerate(self.body):
            #1.We still need a rect for the posititoning
            xpos = int(block.x * cell_size)
@@ -66,31 +68,37 @@ class snake:
            block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
            #2. what direction is the face heading
            if index == 0:
-               screen.blit(self.head_right, block_rect)
+               screen.blit(self.head, block_rect)
+           elif index == len(self.body)- 1:
+               screen.blit(self.tail, block_rect)
            else:
               pygame.draw.rect(screen , (150,100,100) , block_rect) 
 
+    def update_head_graphics(self):
+       # refer notes 
+       head_relation = self.body[1] - self.body[0]
+       if head_relation == Vector2(1,0): self.head = self.head_left
+       elif head_relation == Vector2(-1,0): self.head = self.head_right
+       elif head_relation == Vector2(0,1): self.head = self.head_up
+       elif head_relation == Vector2(0,-1): self.head = self.head_down
+    
+    def update_tail_graphics(self):
+        tail_relation = self.body[-2] - self.body[-1]
+        if tail_relation == Vector2(1,0): self.tail = self.tail_left
+        elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
+        elif tail_relation == Vector2(0,1): self.tail = self.tail_up
+        elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
 
-           
 
 
 
-
-
-
-
-
-
-
-
-       """ for block in self.body:
-            #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
-            xpos = int(block.x * cell_size)
-            ypos = int(block.y * cell_size)
-            block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
-            pygame.draw.rect(screen, (183, 111, 122), block_rect)"""
+    """ for block in self.body:
+        #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
+        xpos = int(block.x * cell_size)
+        ypos = int(block.y * cell_size)
+        block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
+        pygame.draw.rect(screen, (183, 111, 122), block_rect)"""
             
-   
     def move_snake(self):
         if self.new_block == True:
             bodycopy = self.body[:]
