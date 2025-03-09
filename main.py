@@ -30,11 +30,17 @@ while True:
     """
 
 
+""" for block in self.body:
+        #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
+        xpos = int(block.x * cell_size)
+        ypos = int(block.y * cell_size)
+        block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
+        pygame.draw.rect(screen, (183, 111, 122), block_rect)"""
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BASICS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 from pygame.math import Vector2
 import random
 
-class snake:
+class snake: 
     def __init__(self):
         self.body = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
         self.direction = Vector2(1,0)
@@ -79,7 +85,14 @@ class snake:
               elif previous_block.y == next_block.y:
                   screen.blit(self.body_horizontal , block_rect )
               else:
-                  screen.blit(self.body_tl , block_rect)
+                  if previous_block.x == -1 and next_block.y == -1 or previous_block.y == -1 and next_block.x ==-1: 
+                    screen.blit(self.body_tl , block_rect) # left to top and top to left
+                  elif previous_block.x == -1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == -1:
+                    screen.blit(self.body_bl , block_rect) # left to bottom and bottom to left
+                  elif previous_block.x == 1 and next_block.y == -1 or previous_block.y == -1 and next_block.x == 1:
+                    screen.blit(self.body_tr , block_rect) # right to top and top to right
+                  elif previous_block.x == 1 and next_block.y == 1 or previous_block.y == 1 and next_block.x == 1:
+                    screen.blit(self.body_br , block_rect) # right to bottom and bottom to right
 
     def update_head_graphics(self):
        # refer notes 
@@ -96,16 +109,6 @@ class snake:
         elif tail_relation == Vector2(0,1): self.tail = self.tail_up
         elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
 
-
-
-
-    """ for block in self.body:
-        #create a rect and draw the rectangle Rect(x-pos, y-pos, width, height) *IMPORTANT*
-        xpos = int(block.x * cell_size)
-        ypos = int(block.y * cell_size)
-        block_rect = pygame.Rect(xpos, ypos, cell_size, cell_size)
-        pygame.draw.rect(screen, (183, 111, 122), block_rect)"""
-            
     def move_snake(self):
         if self.new_block == True:
             bodycopy = self.body[:]
@@ -145,6 +148,7 @@ class MAIN:
         self.check_fail()
 
     def draw_elements(self):
+        self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
     
@@ -157,7 +161,7 @@ class MAIN:
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
             self.game_over()
-        # < cell number because the index starts from 0 and goes to 19
+        # < cell number because the index starts from 0 and goes to 19 not 0 <= body.x <cell_number
 
         for block in self.snake.body[1:]:
             if block == self.snake.body[0]:
@@ -166,7 +170,22 @@ class MAIN:
     def game_over(self):
         pygame.quit()
         sys.exit()
- 
+
+    def draw_grass(self):
+        grass_color = (167,209,61)
+        for row in range(cell_number):
+            if row % 2 == 0:
+                for col in range(cell_number):
+                    if col % 2 == 0:
+                        grass_rect = pygame.Rect(col * cell_size,row * cell_size, cell_size, cell_size)
+                        pygame.draw.rect(screen, grass_color, grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2 != 0:
+                        grass_rect = pygame.Rect(col * cell_size,row * cell_size, cell_size, cell_size)
+                        pygame.draw.rect(screen, grass_color, grass_rect) 
+                    
+
 pygame.init()
 cell_size = 40
 cell_number = 20
