@@ -10,3 +10,6 @@ Avoid colliding with the walls or yourself.
 - Simple and fun gameplay
 - Retro-style graphics
 - Score tracking
+
+
+![alt text](Assets/body_tl.png)  about rendering of corner cases for graphics

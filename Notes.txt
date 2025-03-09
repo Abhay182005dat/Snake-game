@@ -18,3 +18,29 @@ Say body block at start  = [4,10]
 and head pos at start = [5,10]
 (subtract the vectors  = 4-5 = [-1,10])
 then first block is to the left of the head
+
+
+Same y means Horizontal
+Same x means Vertical 
+notes : previous_block = self.body[index + 1] - block 
+        next_block = self.body[index - 1] - block
+
+Head <- Middle <- Tail
+(5,10)  (4,10)   (3,10)
+
+for index = 1
+previous_block = self.body[2] - self.body[1]            
+previous_block = Vector2(3, 10) - Vector2(4, 10)
+previous_block = Vector2(-1, 0)
+
+next_block = self.body[0] - self.body[1]
+next_block = Vector2(5, 10) - Vector2(4, 10)
+next_block = Vector2(1, 0)
+
+previous_block = Vector2(-1, 0): This indicates that the next
+segment (tail) is to the left of the current segment (middle).
+
+next_block = Vector2(1, 0): This indicates that the previous 
+segment (head) is to the right of the current segment (middle).\
+
+
