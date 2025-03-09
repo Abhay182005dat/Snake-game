@@ -11,4 +11,3 @@ Avoid colliding with the walls or yourself.
 - Retro-style graphics
 - Score tracking
 
-
