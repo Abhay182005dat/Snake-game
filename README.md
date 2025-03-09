@@ -11,5 +11,3 @@ Avoid colliding with the walls or yourself.
 - Retro-style graphics
 - Score tracking
 
-
-x= -1 and y = -1 ![alt text](Assets/body_tl.png)  about rendering of corner cases for graphics  
