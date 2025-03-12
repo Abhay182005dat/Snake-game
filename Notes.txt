@@ -43,4 +43,8 @@ segment (tail) is to the left of the current segment (middle).
 next_block = Vector2(1, 0): This indicates that the previous 
 segment (head) is to the right of the current segment (middle).\
 
+Text in Pygame :
+1. Create a font object 
+2. Create text with the font object
+3. Blit the text on the display screen
 

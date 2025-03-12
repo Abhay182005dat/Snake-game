@@ -151,6 +151,7 @@ class MAIN:
         self.draw_grass()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        self.draw_score()
     
     def check_collision(self):
         if self.fruit.pos == self.snake.body[0]:
@@ -184,7 +185,23 @@ class MAIN:
                     if col % 2 != 0:
                         grass_rect = pygame.Rect(col * cell_size,row * cell_size, cell_size, cell_size)
                         pygame.draw.rect(screen, grass_color, grass_rect) 
-                    
+
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3) # 3 is the initial length of the snake
+        score_surface = game_font.render(score_text, True ,(56,74,12))    # true means for smooth edges
+        score_x = int(cell_size * cell_number - 60) # 60 pixels from the right
+        score_y = int(cell_size * cell_number - 40) # 40 pixels from the bottom
+        score_rect = score_surface.get_rect(center = (score_x, score_y))
+        # we are taking a rectangle midright of the score_rect and center of the score_rect
+        # so that the apple will be placed at the left of the score
+        apple_rect = apple.get_rect(midright = (score_rect.left , score_rect.centery))
+        bg_rect = pygame.Rect(apple_rect.left , apple_rect.top , apple_rect.width + score_rect.width + 6 ,
+                              apple_rect.height)
+        pygame.draw.rect(screen,(167,209,61),bg_rect,2) # rect(draw on screen, color, rect)
+
+        screen.blit(score_surface , score_rect)
+        screen.blit(apple, apple_rect)
+        pygame.draw.rect(screen,(56,74,12),bg_rect, 2)
 
 pygame.init()
 cell_size = 40
@@ -192,6 +209,9 @@ cell_number = 20
 screen = pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 clock = pygame.time.Clock()
 apple = pygame.image.load('Snake game/Assets/apple.png').convert_alpha() # convert_alpha is used to convert the image to the format that pygame can understand
+game_font = pygame.font.Font('Snake game/Carre-JWja.ttf', 25)  # font size 40
+
+
 main_game = MAIN()
 
 SCREEN_UPDATE = pygame.USEREVENT
