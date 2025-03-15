@@ -1,4 +1,4 @@
-import pygame , sys
+import pygame , sys , random
 """
 # set screen : screen = pygame.display.set_mode((width, height))
 pygame.init()
@@ -63,6 +63,7 @@ class snake:
         self.body_tl = pygame.image.load('Snake game/Assets/body_tl.png').convert_alpha()
         self.body_br = pygame.image.load('Snake game/Assets/body_br.png').convert_alpha()
         self.body_bl = pygame.image.load('Snake game/Assets/body_bl.png').convert_alpha()
+        self.crunch_sound = pygame.mixer.Sound('Snake game/Assets/crunch.wav')
 
     def draw_snake(self):
        self.update_head_graphics()
@@ -123,6 +124,13 @@ class snake:
     def add_block(self):
         self.new_block = True
 
+    def play_crunch_sound(self):
+        self.crunch_sound.play()
+
+    def reset(self):
+        self.body = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
+        #   self.direction = Vector2(1,0)
+
 class Fruit:
     def __init__(self):
         self.randomize()
@@ -158,6 +166,10 @@ class MAIN:
            #reposion the fruit
             self.fruit.randomize()
             self.snake.add_block()
+            self.snake.play_crunch_sound()
+        for block in self.snake.body[1:]:
+            if block == self.fruit.pos:
+                self.fruit.randomize()
 
     def check_fail(self):
         if not 0 <= self.snake.body[0].x < cell_number or not 0 <= self.snake.body[0].y < cell_number:
@@ -169,8 +181,7 @@ class MAIN:
                 self.game_over()
 
     def game_over(self):
-        pygame.quit()
-        sys.exit()
+        self.snake.reset()
 
     def draw_grass(self):
         grass_color = (167,209,61)
@@ -203,6 +214,7 @@ class MAIN:
         screen.blit(apple, apple_rect)
         pygame.draw.rect(screen,(56,74,12),bg_rect, 2)
 
+pygame.mixer.pre_init( 44100, -16, 2, 512) # to avoid delay in sound
 pygame.init()
 cell_size = 40
 cell_number = 20
