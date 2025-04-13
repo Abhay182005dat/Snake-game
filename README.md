@@ -11,5 +11,5 @@ Avoid colliding with the walls or yourself.
 - Retro-style graphics
 - Score tracking
 
-##Installation
+## Installation
 Just fork the repository and run the code !
